@@ -85,11 +85,9 @@ else()
 	set(VERSION_NOHASH "${VERSION}")
 endif()
 
-execute_process(
-	COMMAND bash "-c" "echo ${VERSION} | md5sum | head -c 8"
-	OUTPUT_VARIABLE VERSION_MD5
-)
-set(VERSION_MD5 "0x${VERSION_MD5}")
+string(MD5 VERSION_MD5_FULL "${VERSION}")
+string(SUBSTRING "${VERSION_MD5_FULL}" 0 8 VERSION_MD5_SHORT)
+set(VERSION_MD5 "0x${VERSION_MD5_SHORT}")
 
 message("Building version: ${VERSION} MD5: ${VERSION_MD5}")
 
