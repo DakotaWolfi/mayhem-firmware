@@ -252,9 +252,9 @@ set(EXTCPPSRC
 	external/blackjack/main.cpp
 	external/blackjack/ui_blackjack.cpp
 
-	#battleship  256 byte
-	external/battleship/main.cpp
-	external/battleship/ui_battleship.cpp
+	#battleship disabled: external image currently exceeds 32KB build limit
+	#external/battleship/main.cpp
+	#external/battleship/ui_battleship.cpp
 
 	#ert 3040 bytes - has common with baseband, could be renamed the namespace, so both could have it, but not kept in fw.
 	external/ert/main.cpp
@@ -431,7 +431,7 @@ set(EXTAPPLIST
 	fpv_detect
 	spaceinv
 	blackjack
-	battleship
+	#battleship
 	ert
 	epirb_rx
 	epirb_tx

@@ -1,7 +1,7 @@
 FROM alpine:edge
 
 # Download ARM toolkit.
-RUN apk add --no-cache gcc-arm-none-eabi gcc
+RUN apk add --no-cache gcc-arm-none-eabi g++-arm-none-eabi gcc
 
 # Create volume /havoc/bin for compiled firmware binaries
 VOLUME /havoc
@@ -18,6 +18,9 @@ RUN apk add --no-cache g++ gcc clang clang-static clang-dev llvm-dev llvm-static
 
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
+ENV MAYHEM_JOBS=auto
 
-CMD cd .. && cd build && \
-    cmake .. && make ppfw
+CMD mkdir -p /tmp/mayhem-build && cd /tmp/mayhem-build && \
+    cmake /havoc && \
+    JOBS=$(if [ "$MAYHEM_JOBS" = "auto" ]; then nproc; else echo "$MAYHEM_JOBS"; fi) && \
+    cmake --build . --parallel "$JOBS" --target ppfw

@@ -317,7 +317,7 @@ macro(DeclareTargets chunk_tag name)
 			OUTPUT ${chunk_tag}.bin ${PROJECT_NAME}.img
 			COMMAND ${CMAKE_OBJCOPY} -O binary ${PROJECT_NAME}.elf ${chunk_tag}.bin
 			COMMAND ${LZ4} -f -9 ${chunk_tag}.bin ${PROJECT_NAME}.lz4
-			COMMAND ${MAKE_IMAGE_CHUNK} ${PROJECT_NAME}.lz4 ${chunk_tag} ${PROJECT_NAME}.img
+			COMMAND python3 ${MAKE_IMAGE_CHUNK} ${PROJECT_NAME}.lz4 ${chunk_tag} ${PROJECT_NAME}.img
 			DEPENDS ${PROJECT_NAME}.elf ${MAKE_IMAGE_CHUNK}
 			VERBATIM
 		)
@@ -493,13 +493,13 @@ set(MODE_CPPSRC
 DeclareTargets(PSGD subghzd)
 
 
+set(MODE_FLAGS "-Os")
+
 ### Weather Stations
 set(MODE_CPPSRC
 	proc_weather.cpp
 )
 DeclareTargets(PWTH weather)
-
-set(MODE_FLAGS "-Os")
 
 ### Flash Utility
 
@@ -824,7 +824,7 @@ set_source_files_properties(${HACKRF_FIRMWARE_BIN_IMAGE} PROPERTIES GENERATED TR
 add_custom_command(
 	OUTPUT hackrf.img
 	COMMAND ${LZ4} -f -9 ${HACKRF_FIRMWARE_BIN_IMAGE} hackrf.lz4
-	COMMAND ${MAKE_IMAGE_CHUNK} hackrf.lz4 HRF1 hackrf.img
+	COMMAND python3 ${MAKE_IMAGE_CHUNK} hackrf.lz4 HRF1 hackrf.img
 	DEPENDS ${HACKRF_FIRMWARE_BIN_IMAGE} hackrf_usb_ram.bin ${MAKE_IMAGE_CHUNK}
 	VERBATIM
 )
@@ -835,7 +835,7 @@ set(BASEBAND_IMAGES ${BASEBAND_IMAGES} hackrf.img)
 
 add_custom_command(
 	OUTPUT terminator.img
-	COMMAND ${MAKE_IMAGE_CHUNK} terminator.img
+	COMMAND python3 ${MAKE_IMAGE_CHUNK} terminator.img
 	DEPENDS ${MAKE_IMAGE_CHUNK}
 	VERBATIM
 )

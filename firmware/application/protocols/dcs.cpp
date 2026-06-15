@@ -21,6 +21,7 @@
  */
 
 #include "dcs.hpp"
+#include <cstdint>
 
 namespace dcs {
 
