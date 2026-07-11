@@ -769,6 +769,13 @@ set(MODE_CPPSRC
 )
 DeclareTargets(PTON tones)
 
+### Signal Hunter
+
+set(MODE_CPPSRC
+    proc_signal_hunter.cpp
+)
+DeclareTargets(HUNT signal_hunter)
+
 
 
 ### Time Sink
@@ -777,6 +784,15 @@ set(MODE_CPPSRC
 	proc_time_sink.cpp
 )
 DeclareTargets(PTSK time_sink)
+
+
+### Tetra Rx
+
+set(MODE_CPPSRC
+	proc_tetra.cpp
+)
+DeclareTargets(PTET tetra_rx)
+
 
 set(MODE_CPPSRC
 	sd_over_usb/proc_sd_over_usb.cpp

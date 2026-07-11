@@ -19,34 +19,27 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef __TEMPERATURE_LOGGER_H__
-#define __TEMPERATURE_LOGGER_H__
+#ifndef __UI_FOCUS_H__
+#define __UI_FOCUS_H__
 
-#include <cstddef>
-#include <cstdint>
-#include <array>
-#include <vector>
+#include "ui.hpp"
 
-class TemperatureLogger {
+namespace ui {
+
+class Widget;
+
+class FocusManager {
    public:
-    using sample_t = int8_t;
+    Widget* focus_widget() const;
+    void set_focus_widget(Widget* const new_focus_widget);
 
-    void second_tick();
-
-    size_t size() const;
-    size_t capacity() const;
-
-    std::vector<sample_t> history() const;
+    void update(Widget* const top_widget, const KeyEvent event);
+    // void update(Widget* const top_widget, const TouchEvent event);
 
    private:
-    std::array<sample_t, 128> samples{};
-
-    static constexpr size_t sample_interval = 5;
-    size_t sample_phase = 0;
-    size_t samples_count = 0;
-
-    sample_t read_sample();
-    void push_sample(const sample_t sample);
+    Widget* focus_widget_{nullptr};
 };
 
-#endif /*__TEMPERATURE_LOGGER_H__*/
+} /* namespace ui */
+
+#endif /*__UI_FOCUS_H__*/
