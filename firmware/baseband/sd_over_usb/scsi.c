@@ -293,7 +293,7 @@ void scsi_command(msd_cbw_t* msd_cbw_data) {
             gpio_output(&dfu);
             gpio_clear(&dfu);
 
-            delay(50 * 40800);
+            delay_ms(50);
 
             RESET_CTRL0 = (1 << 0);
             break;

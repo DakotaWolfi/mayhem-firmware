@@ -25,6 +25,7 @@
 
 #include <memory>
 #include <array>
+#include <cstdint>
 
 #define TONES_SAMPLERATE 1536000
 #define TONES_DELTA_COEF(sr) ((1ULL << 32) / sr)
