@@ -65,6 +65,7 @@
 #include "ble_rx_app.hpp"
 #include "ble_tx_app.hpp"
 #include "capture_app.hpp"
+#include "ef28_foxhunt_app.hpp"
 #include "pocsag_app.hpp"
 
 #include "core_control.hpp"
@@ -117,6 +118,7 @@ const NavigationView::AppList NavigationView::appList = {
     {"touchtune", "TouchTune", TX, ui::Color::green(), &bitmap_icon_touchtunes, new ViewFactory<TouchTunesView>()},
     /* TRX ********************************************************************/
     {"microphone", "Mic", TRX, Color::green(), &bitmap_icon_microphone, new ViewFactory<MicTXView>()},
+    {"ef28fox", "EF28 Fox Hunt", TRX, Color::green(), &bitmap_icon_btle, new ViewFactory<EF28FoxHuntView>()},
     /* UTILITIES *************************************************************/
     {"filemanager", "File Manager", UTILITIES, Color::green(), &bitmap_icon_dir, new ViewFactory<FileManagerView>()},
     {"freqman", "Freq. Manager", UTILITIES, Color::green(), &bitmap_icon_freqman, new ViewFactory<FrequencyManagerView>()},
