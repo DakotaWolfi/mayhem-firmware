@@ -38,7 +38,7 @@ __attribute__((section(".external_app.app_foxhunt_rx.application_information"), 
     /*.header_version = */ CURRENT_HEADER_VERSION,
     /*.app_version = */ VERSION_MD5,
 
-    /*.app_name = */ "Fox hunt",
+    /*.app_name = */ "EF28 Fox Hunt",
     /*.bitmap_data = */ {
         0x18,
         0x18,

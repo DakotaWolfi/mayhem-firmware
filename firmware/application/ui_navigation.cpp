@@ -61,7 +61,6 @@
 #include "ble_rx_app.hpp"
 #include "ble_tx_app.hpp"
 #include "capture_app.hpp"
-#include "ef28_foxhunt_app.hpp"
 #include "pocsag_app.hpp"
 
 #include "core_control.hpp"
@@ -110,7 +109,6 @@ const NavigationView::AppList NavigationView::appList = {
     {"touchtune", "TouchTune", TX, ui::Color::green(), &bitmap_icon_touchtunes, new ViewFactory<TouchTunesView>()},
     /* TRX ********************************************************************/
     {"microphone", "Mic", TRX, Color::green(), &bitmap_icon_microphone, new ViewFactory<MicTXView>()},
-    {"ef28fox", "EF28 Fox Hunt", TRX, Color::green(), &bitmap_icon_btle, new ViewFactory<EF28FoxHuntView>()},
     /* UTILITIES *************************************************************/
     {"filemanager", "File Manager", UTILITIES, Color::green(), &bitmap_icon_dir, new ViewFactory<FileManagerView>()},
     {"freqman", "Freq. Manager", UTILITIES, Color::green(), &bitmap_icon_freqman, new ViewFactory<FrequencyManagerView>()},
@@ -703,8 +701,9 @@ bool InformationView::firmware_checksum_error() {
         // so if we do, we need to patch many codes. so we can't define the PortaRF board currently in our cmake.
         // discuss needed to find a better way but currently we need CI works and make hackrf pro works as much as possible.
 #else
-        fw_checksum_error = (simple_checksum(FLASH_STARTING_ADDRESS, FLASH_SIZE_LIMIT_MB * 1024 * 1024) != FLASH_EXPECTED_CHECKSUM);
+        fw_checksum_error = (simple_checksum(FLASH_STARTING_ADDRESS, 8 * 1024 * 1024) != FLASH_EXPECTED_CHECKSUM);
 #endif
+        fw_checksum_checked = true;
     }
     return fw_checksum_error;
 }
@@ -1188,7 +1187,7 @@ SplashScreenView::SplashScreenView(NavigationView& nav)
 void SplashScreenView::get_random_splash_file(std::filesystem::path& path) {
     path = u"";
 
-    srand(LPC_RTC->CTIME0);
+    srand(chTimeNow());
 
     DIR dir;
     FILINFO fno;

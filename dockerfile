@@ -41,8 +41,4 @@ RUN mkdir /opt/build && cd /opt/build && \
 #Set environment variable so compiler knows where the toolchain lives
 ENV PATH=$PATH:/opt/build/armbin/bin
 
-CMD cd /havocsrc && \
-        mkdir build && cd build && \ 
-        cmake .. && make firmware && \
-        cp /portapack-havoc/firmware/portapack-h1-havoc.bin /havocbin
-
+CMD cd /havocsrc && mkdir -p build && cd build && cmake .. && make firmware && cp firmware/application.elf /havocbin/

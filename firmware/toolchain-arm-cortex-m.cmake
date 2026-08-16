@@ -23,8 +23,12 @@ set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_VERSION 1)
 set(CMAKE_SYSTEM_PROCESSOR arm)
 
-find_program(ARM_GCC_EXECUTABLE arm-none-eabi-gcc REQUIRED)
-find_program(ARM_GXX_EXECUTABLE arm-none-eabi-g++ REQUIRED)
+find_program(ARM_GCC_EXECUTABLE arm-none-eabi-gcc)
+find_program(ARM_GXX_EXECUTABLE arm-none-eabi-g++)
+
+if(NOT ARM_GCC_EXECUTABLE OR NOT ARM_GXX_EXECUTABLE)
+	message(FATAL_ERROR "ARM toolchain not found. Please install arm-none-eabi-gcc and arm-none-eabi-g++")
+endif()
 
 if(CMAKE_VERSION VERSION_LESS 3.6)
 	include(CMakeForceCompiler)
